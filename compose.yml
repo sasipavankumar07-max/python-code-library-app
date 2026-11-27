@@ -1,5 +1,5 @@
 services:
-  db_service:
+  db:
     image: sasipk/library:db
     deploy:
       replicas: 1
@@ -17,7 +17,8 @@ services:
     networks:
       - mynetwork
     depends_on:
-      - db_service
+      - db
+    
 
   book_service:
     image: sasipk/library:book
@@ -28,8 +29,7 @@ services:
     networks:
       - mynetwork
     depends_on:
-      - db_service
-
+      - db
   borrow_service:
     image: sasipk/library:borrow
     deploy:
@@ -39,9 +39,9 @@ services:
     networks:
       - mynetwork
     depends_on:
-      - db_service
+      - db
 
-  FE_service:
+  frontend:
     image: sasipk/library:FE
     deploy:
       replicas: 1
