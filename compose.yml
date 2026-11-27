@@ -1,7 +1,6 @@
----
 services:
-  db:
-    image: shaikmustafa/arshad:db
+  db_service:
+    image: sasipk/library:db
     deploy:
       replicas: 1
     ports:
@@ -10,7 +9,7 @@ services:
       - mynetwork
 
   auth_service:
-    image: shaikmustafa/arshad:auth
+    image: sasipk/library:auth
     deploy:
       replicas: 1
     ports:
@@ -18,11 +17,10 @@ services:
     networks:
       - mynetwork
     depends_on:
-      - db
-    
+      - db_service
 
   book_service:
-    image: shaikmustafa/arshad:book
+    image: sasipk/library:book
     deploy:
       replicas: 1
     ports:
@@ -30,9 +28,10 @@ services:
     networks:
       - mynetwork
     depends_on:
-      - db
+      - db_service
+
   borrow_service:
-    image: shaikmustafa/arshad:borrow
+    image: sasipk/library:borrow
     deploy:
       replicas: 1
     ports:
@@ -40,10 +39,10 @@ services:
     networks:
       - mynetwork
     depends_on:
-      - db
+      - db_service
 
-  frontend:
-    image: shaikmustafa/arshad:frontend
+  FE_service:
+    image: sasipk/library:FE
     deploy:
       replicas: 1
     ports:
@@ -57,4 +56,4 @@ services:
 
 networks:
   mynetwork:
-    driver: bridge
+    driver: overlay
